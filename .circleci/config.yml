@@ -5,7 +5,7 @@
 version: 2
 jobs:
 general:
-  build_dir: app/edxapp/edx-platform
+  build_dir:  ~/repo/Backend
   build:
     docker:
       # specify the version you desire here
