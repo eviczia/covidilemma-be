@@ -4,8 +4,8 @@
 #
 version: 2
 jobs:
-general:
-  build_dir:  ~/repo/Backend
+  build_develop:
+    working_directory: ~/repo/Backend
   build:
     docker:
       # specify the version you desire here
