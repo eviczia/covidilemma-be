@@ -4,6 +4,8 @@
 #
 version: 2
 jobs:
+general:
+  build_dir: app/edxapp/edx-platform
   build:
     docker:
       # specify the version you desire here
