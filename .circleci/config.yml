@@ -4,9 +4,8 @@
 #
 version: 2
 jobs:
-  build_develop:
-    working_directory: ~/repo/Backend
   build:
+    working_directory: ~/repo/Backend
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:8-jdk
@@ -15,9 +14,6 @@ jobs:
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/postgres:9.4
-
-    working_directory: ~/repo/Backend
-
     environment:
       # Customize the JVM maximum heap limit
       JVM_OPTS: -Xmx3200m
