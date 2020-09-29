@@ -1,24 +1,13 @@
 package com.hackathon.covidilemma.services;
 
-import com.hackathon.covidilemma.models.entities.Player;
-import com.hackathon.covidilemma.models.entities.Role;
-import com.hackathon.covidilemma.repositories.PlayerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.hackathon.covidilemma.models.entities.Question;
 
-@Service
-public class CovidilemmaService implements CovidilemmaServiceImpl{
+import java.util.List;
 
-  private PlayerRepository playerRepository;
+public interface CovidilemmaService {
 
-  @Autowired
-  public CovidilemmaService(PlayerRepository playerRepository) {
-    this.playerRepository = playerRepository;
-  }
+  void addNewPlayer(String name);
 
-  @Override
-  public void addNewPlayer(String name) {
-    playerRepository.save(new Player(name));
-  }
+  List<Question> getQuestions();
 
 }
