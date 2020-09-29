@@ -3,32 +3,38 @@ import axios from "axios";
 import "./Login.css";
 
 function Login() {
-  const [nickName, setNickName] = useState({});
-  const [errorMessage, setErrorMessage] = useState({
-    message: "",
-    isError: false,
+  const [user, setUser] = useState({
+    name: "",
   });
+
+  //   const [errorMessage, setErrorMessage] = useState({
+  //     message: "",
+  //     isError: false,
+  //   });
 
   async function handleSubmit(event) {
     event.preventDefault();
-    axios({
-      method: "post",
-      url: "http://localhost:8080/login",
-      headers: {},
-      data: {
-        nickName: { nickName },
-      },
-    }).then((response) => {
-      if (response.status === 400) {
-      } else {
-        setNickName(nickName);
-      }
-    });
+    axios
+      .post("http://localhost:8080/login", {
+        nickname: user.name,
+      })
+      .then((response) => {
+        //   if (response.status === 400) {
+        //   } else if (response.status === 200) {
+        //     setUser(user.nickName);
+        // window.location.replace = "/";
+        // browserHistory.push("/");
+        //store token
+        //   }
+      });
+  }
+
+  function handleInputChange(event) {
+    setUser({ name: event.target.value });
   }
 
   return (
     <div className="loginPage">
-      <div className="bg.image"></div>
       <div className="title">
         <h1 className="title">COVIDILEMMA</h1>
       </div>
@@ -38,10 +44,10 @@ function Login() {
             <input
               type="text"
               name="nickname"
-              //   value={nickName}
+              value={user.name}
               placeholder="Enter your nickname"
               className="nicknameInput"
-              //   onChange={handleInputChange}
+              onChange={handleInputChange}
             />
           </div>
           <div className="submit">
