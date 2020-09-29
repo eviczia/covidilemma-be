@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import validateNickname from "../services/validateNickname";
 import axios from "axios";
+import "./Login.css";
 
 function Login() {
   const [nickName, setNickName] = useState({});
@@ -11,20 +11,26 @@ function Login() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-
-    if (validateNickname.response === 400) {
-      setErrorMessage(validateNickname.message);
-    } else {
-      axios.post("http://localhost:8080/login").then((response) => {
-        setNickName(response.data);
-      });
-    }
+    axios({
+      method: "post",
+      url: "http://localhost:8080/login",
+      headers: {},
+      data: {
+        nickName: { nickName },
+      },
+    }).then((response) => {
+      if (response.status === 400) {
+      } else {
+        setNickName(nickName);
+      }
+    });
   }
 
   return (
-    <div>
-      <div>
-        <h1>COVIDILEMMA</h1>
+    <div className="loginPage">
+      <div className="bg.image"></div>
+      <div className="title">
+        <h1 className="title">COVIDILEMMA</h1>
       </div>
       <div className="form">
         <form onSubmit={handleSubmit} method="post">
