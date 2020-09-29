@@ -14,16 +14,13 @@ public class Answer {
   private int id;
   private String answer;
   private boolean isCorrect;
-  @ManyToOne
-  private Question question;
 
   public Answer() {
   }
 
-  public Answer(String answer, boolean isCorrect, Question question) {
+  public Answer(String answer, boolean isCorrect) {
     this.answer = answer;
     this.isCorrect = isCorrect;
-    this.question = question;
   }
 
   public int getId() {
@@ -50,11 +47,4 @@ public class Answer {
     isCorrect = correct;
   }
 
-  public Question getQuestion() {
-    return question;
-  }
-
-  public void setQuestion(Question question) {
-    this.question = question;
-  }
 }
