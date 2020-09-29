@@ -14,6 +14,7 @@ function Login() {
 
   async function handleSubmit(event) {
     event.preventDefault();
+
     axios
       .post("http://localhost:8080/login", {
         nickname: user.name,
@@ -22,9 +23,8 @@ function Login() {
         //   if (response.status === 400) {
         //   } else if (response.status === 200) {
         //     setUser(user.nickName);
-        // window.location.replace = "/";
-        // browserHistory.push("/");
-        //store token
+        //     response.redirect("/");
+        //     //store token
         //   }
       });
   }
