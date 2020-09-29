@@ -1,5 +1,4 @@
 import React from "react";
-
 import Login from "./components/Login";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Main from "./components/Main";
@@ -10,10 +9,10 @@ function App() {
     <Router>
       <Switch>
         <div className="App">
-          <Route path="/login">
+          <Route exact path="/">
             <Login />
           </Route>
-          <Route exact path="/">
+          <Route path="/main">
             <Main />
           </Route>
         </div>
