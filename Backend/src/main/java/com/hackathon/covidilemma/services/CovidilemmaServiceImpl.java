@@ -1,5 +1,6 @@
 package com.hackathon.covidilemma.services;
 
+import com.hackathon.covidilemma.models.entities.Player;
 import com.hackathon.covidilemma.models.entities.Question;
 import com.hackathon.covidilemma.repositories.PlayerRepository;
 import com.hackathon.covidilemma.repositories.QuestionRepository;
@@ -25,7 +26,7 @@ public class CovidilemmaServiceImpl implements CovidilemmaService {
   }
 
   @Override
-  public void addNewPlayer(String name) {
-
+  public void addNewPlayer(Player player) {
+    playerRepository.save(player);
   }
 }
