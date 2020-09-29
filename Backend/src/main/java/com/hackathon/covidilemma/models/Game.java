@@ -15,6 +15,8 @@ public class Game {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
   private List<Question> questions;
+  private String state;
+  // waitingForPlayers, playing
 
   public Game() {
     this.questions = new ArrayList<>();
