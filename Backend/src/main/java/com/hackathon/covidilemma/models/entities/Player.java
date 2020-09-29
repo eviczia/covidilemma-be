@@ -1,11 +1,14 @@
 package com.hackathon.covidilemma.models.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -18,8 +21,6 @@ public class Player implements UserDetails {
   private Integer id;
   private String username;
   private String password;
-  @OneToOne
-  private Role role;
 
   public Player() {
   }
@@ -45,6 +46,10 @@ public class Player implements UserDetails {
     return username;
   }
 
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
   @Override
   public boolean isAccountNonExpired() {
     return true;
@@ -65,17 +70,10 @@ public class Player implements UserDetails {
     return true;
   }
 
-  public void setUsername(String username) {
-    this.username = username;
-  }
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    List<String> roles = new ArrayList<>();
-    roles.add(role.name);
-    return roles.stream()
-        .map(SimpleGrantedAuthority::new)
-        .collect(Collectors.toList());
+    return null;
   }
 
   public String getPassword() {
@@ -86,11 +84,4 @@ public class Player implements UserDetails {
     this.password = password;
   }
 
-  public Role getRole() {
-    return role;
-  }
-
-  public void setRole(Role role) {
-    this.role = role;
-  }
 }

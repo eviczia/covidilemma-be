@@ -1,9 +1,11 @@
-package com.hackathon.covidilemma.models;
+package com.hackathon.covidilemma.models.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +16,8 @@ public class Game {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
+  @OneToMany
   private List<Question> questions;
-  private String state;
-  // waitingForPlayers, playing
 
   public Game() {
     this.questions = new ArrayList<>();

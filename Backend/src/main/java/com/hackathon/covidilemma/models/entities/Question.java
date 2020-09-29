@@ -1,4 +1,4 @@
-package com.hackathon.covidilemma.models;
+package com.hackathon.covidilemma.models.entities;
 
 
 import javax.persistence.Entity;
@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.util.List;
 
 @Entity
@@ -15,18 +17,18 @@ public class Question {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
   private String question;
-  private String rightAnswer;
-  private List<String> wrongAnswers;
+  @OneToMany
+  private List<Answer> answers;
   @ManyToOne
   private Game game;
 
   public Question() {
   }
 
-  public Question(String question, String rightAnswer, List<String> wrongAnswers) {
+  public Question(String question, List<Answer> answers, Game game) {
     this.question = question;
-    this.rightAnswer = rightAnswer;
-    this.wrongAnswers = wrongAnswers;
+    this.answers = answers;
+    this.game = game;
   }
 
   public int getId() {
@@ -45,20 +47,12 @@ public class Question {
     this.question = question;
   }
 
-  public String getRightAnswer() {
-    return rightAnswer;
+  public List<Answer> getAnswers() {
+    return answers;
   }
 
-  public void setRightAnswer(String rightAnswer) {
-    this.rightAnswer = rightAnswer;
-  }
-
-  public List<String> getWrongAnswers() {
-    return wrongAnswers;
-  }
-
-  public void setWrongAnswers(List<String> wrongAnswers) {
-    this.wrongAnswers = wrongAnswers;
+  public void setAnswers(List<Answer> answers) {
+    this.answers = answers;
   }
 
   public Game getGame() {
