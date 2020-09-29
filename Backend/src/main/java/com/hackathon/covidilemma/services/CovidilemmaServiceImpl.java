@@ -22,7 +22,15 @@ public class CovidilemmaServiceImpl implements CovidilemmaService {
   }
 
   public List<Question> getQuestions() {
-    return questionRepository.findAll();
+ /*   List<Answer> answers = new ArrayList<>()
+    Question question = new Question(
+
+        "How do you like this Hackathon?",
+        new ArrayList<String>("Oh, it's absolutely marvelous", "It's not bad, I guess", "It sucks"),
+
+        );
+    questionRepository.save(, new Game())))
+   */ return questionRepository.findAll();
   }
 
   @Override

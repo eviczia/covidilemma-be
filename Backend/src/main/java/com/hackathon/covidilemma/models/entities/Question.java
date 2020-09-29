@@ -19,16 +19,13 @@ public class Question {
   private String question;
   @OneToMany
   private List<Answer> answers;
-  @ManyToOne
-  private Game game;
 
   public Question() {
   }
 
-  public Question(String question, List<Answer> answers, Game game) {
+  public Question(String question, List<Answer> answers) {
     this.question = question;
     this.answers = answers;
-    this.game = game;
   }
 
   public int getId() {
@@ -55,11 +52,4 @@ public class Question {
     this.answers = answers;
   }
 
-  public Game getGame() {
-    return game;
-  }
-
-  public void setGame(Game game) {
-    this.game = game;
-  }
 }
