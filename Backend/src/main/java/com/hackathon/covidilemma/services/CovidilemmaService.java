@@ -7,6 +7,7 @@ import java.util.List;
 public interface CovidilemmaService {
 
   void addNewPlayer(String name);
+
   List<Question> getQuestions();
 
 }
