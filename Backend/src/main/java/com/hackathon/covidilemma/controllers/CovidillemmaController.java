@@ -1,6 +1,6 @@
 package com.hackathon.covidilemma.controllers;
 
-import com.hackathon.covidilemma.models.dtos.NewPlayer;
+import com.hackathon.covidilemma.models.entities.Player;
 import com.hackathon.covidilemma.services.CovidilemmaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +26,8 @@ public class CovidillemmaController {
 
 
   @PostMapping("/login")
-  public ResponseEntity addNewPlayer(@RequestBody NewPlayer name) {
-    covidilemmaService.addNewPlayer(name.getName());
+  public ResponseEntity addNewPlayer(@RequestBody Player player) {
+    covidilemmaService.addNewPlayer(player);
     return ResponseEntity.ok().build();
   }
 
