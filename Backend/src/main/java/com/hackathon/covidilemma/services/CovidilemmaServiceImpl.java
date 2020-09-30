@@ -29,8 +29,13 @@ public class CovidilemmaServiceImpl implements CovidilemmaService {
         "Jolly well, how are you?",
         "Splendid!"
         );
-    questionRepository.save(question);
+    addQuestion(question);
    return questionRepository.findAll();
+  }
+
+  @Override
+  public void addQuestion(Question question) {
+    questionRepository.save(question);
   }
 
   @Override
