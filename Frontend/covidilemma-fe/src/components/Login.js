@@ -16,20 +16,11 @@ function Login() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-
     axios
-      .post("https://jsonplaceholder.typicode.com/posts", {
-        name: user.username,
-      })
+      .post("http://localhost:8080/login", user.username)
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
         history.push("/main");
-        //   if (response.status === 400) {
-        //   } else if (response.status === 200) {
-        //     setUser(user.nickName);
-        //     response.redirect("/");
-        //     //store token
-        //   }
       });
   }
 

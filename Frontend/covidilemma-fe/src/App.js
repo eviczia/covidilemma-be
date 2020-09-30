@@ -8,14 +8,12 @@ function App() {
   return (
     <Router>
       <Switch>
-        <div className="App">
-          <Route exact path="/">
-            <Login />
-          </Route>
-          <Route path="/main">
-            <Main />
-          </Route>
-        </div>
+        <Route exact path="/">
+          <Login />
+        </Route>
+        <Route path="/main">
+          <Main />
+        </Route>
       </Switch>
     </Router>
   );

@@ -20,10 +20,9 @@ public class Answer {
   public Answer() {
   }
 
-  public Answer(String answer, boolean isCorrect, Question question) {
+  public Answer(String answer, boolean isCorrect) {
     this.answer = answer;
     this.isCorrect = isCorrect;
-    this.question = question;
   }
 
   public int getId() {
@@ -57,4 +56,5 @@ public class Answer {
   public void setQuestion(Question question) {
     this.question = question;
   }
+
 }

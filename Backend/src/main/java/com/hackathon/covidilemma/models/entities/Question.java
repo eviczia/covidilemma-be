@@ -1,6 +1,7 @@
 package com.hackathon.covidilemma.models.entities;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -17,18 +20,25 @@ public class Question {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
   private String question;
-  @OneToMany
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
   private List<Answer> answers;
-  @ManyToOne
-  private Game game;
 
   public Question() {
   }
 
-  public Question(String question, List<Answer> answers, Game game) {
+  public Question(String question) {
     this.question = question;
-    this.answers = answers;
-    this.game = game;
+    answers = new ArrayList<>();
+  }
+
+  public Question(String question, String rightAnswer, String wrongAnswer1, String wrongAnswer2, String wrongAnswer3) {
+    this(question);
+    setAnswers(new ArrayList<>(Arrays.asList(
+        new Answer(rightAnswer, true),
+        new Answer(wrongAnswer1, false),
+        new Answer(wrongAnswer2, false),
+        new Answer(wrongAnswer3, false)
+    )));
   }
 
   public int getId() {
@@ -55,11 +65,8 @@ public class Question {
     this.answers = answers;
   }
 
-  public Game getGame() {
-    return game;
+  public void addAnswer(Answer answer) {
+    answers.add(answer);
   }
 
-  public void setGame(Game game) {
-    this.game = game;
-  }
 }
