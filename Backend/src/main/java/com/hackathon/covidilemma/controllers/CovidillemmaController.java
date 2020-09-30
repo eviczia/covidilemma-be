@@ -21,7 +21,7 @@ public class CovidillemmaController {
 
   @GetMapping("/quiz")
   public ResponseEntity getQuestions() {
-    return ResponseEntity.status(200).body(covidilemmaService.getQuestions());
+   return ResponseEntity.status(200).body(covidilemmaService.getQuestions());
   }
 
 

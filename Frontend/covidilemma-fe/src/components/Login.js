@@ -16,7 +16,7 @@ function Login() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    console.log(player);
+
     axios({
       method: "post",
       url: "http://localhost:8080/login",
