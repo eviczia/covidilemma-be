@@ -1,31 +1,46 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./Login.css";
+import "./Error.css";
 import { useHistory } from "react-router-dom";
 
 function Login() {
-  const [user, setUser] = useState({
+  const [player, setPlayer] = useState({
     username: "",
   });
 
-  //   const [errorMessage, setErrorMessage] = useState({
-  //     message: "",
-  //     isError: false,
-  //   });
+  const [errorMessage, setErrorMessage] = useState({
+    message: "",
+    isError: false,
+  });
+
   let history = useHistory();
 
   async function handleSubmit(event) {
     event.preventDefault();
-    axios
-      .post("http://localhost:8080/login", user.username)
-      .then((response) => {
-        console.log(response.data);
-        history.push("/main");
+
+    if (player.username === "") {
+      setErrorMessage({
+        message: "Nickname is required",
+        isError: true,
       });
+    } else {
+      await axios({
+        method: "post",
+        url: "http://localhost:8080/login",
+        data: {
+          username: player.username,
+        },
+      }).then((response) => {
+        if (response.status === 200) {
+          history.push("/main");
+        }
+      });
+    }
   }
 
   function handleInputChange(event) {
-    setUser({ username: event.target.value });
+    setPlayer({ [event.target.name]: event.target.value });
   }
 
   return (
@@ -38,12 +53,15 @@ function Login() {
           <div>
             <input
               type="text"
-              name="nickname"
-              value={user.username}
+              name="username"
+              value={player.username}
               placeholder="Enter your nickname"
               className="nicknameInput"
               onChange={handleInputChange}
             />
+          </div>
+          <div className="error">
+            {errorMessage.isError === true && errorMessage.message}
           </div>
           <div className="submit">
             <button type="submit" className="submitButton">

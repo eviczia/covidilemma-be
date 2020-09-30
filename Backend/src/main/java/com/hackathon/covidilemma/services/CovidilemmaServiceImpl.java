@@ -22,19 +22,27 @@ public class CovidilemmaServiceImpl implements CovidilemmaService {
   }
 
   public List<Question> getQuestions() {
-    Question question = new Question(
+/*    Question question = new Question(
         "How are you?",
         "Absolutely marvelous, thank you for asking.",
         "Not bad, not bad",
         "Jolly well, how are you?",
         "Splendid!"
-        );
+    );
+    addQuestion(question);*/
+    return questionRepository.findAll();
+  }
+
+  @Override
+  public void addQuestion(Question question) {
     questionRepository.save(question);
-   return questionRepository.findAll();
   }
 
   @Override
   public void addNewPlayer(Player player) {
+    if (player.getUsername().isEmpty()) {
+      player.setUsername("Anonymus");
+    }
     playerRepository.save(player);
   }
 }

@@ -11,4 +11,5 @@ public interface CovidilemmaService {
 
   List<Question> getQuestions();
 
+  void addQuestion(Question question);
 }
