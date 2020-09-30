@@ -19,8 +19,8 @@ public class LedController {
   }
 
   @PostMapping("/leds")
-  public ResponseEntity lightUp(LedConfig ledConfig) {
-    ledLightService.controllLeds(ledConfig);
+  public ResponseEntity lightUp() {
+    ledLightService.controllLeds();
     return ResponseEntity.ok().build();
   }
 

@@ -18,14 +18,14 @@ public class LedLightService {
     this.retrofitServiceGenerator = retrofitServiceGenerator;
   }
 
-  public void controllLeds(LedConfig ledConfig) {
+  public void controllLeds() {
     LedService ledService = retrofitServiceGenerator.createService(LedService.class);
-
-    Call<LedConfig> callAsync = ledService.turnLedsOn(ledConfig);
+    final LedConfig[] ledConfig = {getCounterConfig()};
+    Call<LedConfig> callAsync = ledService.turnLedsOn(ledConfig[0]);
     callAsync.enqueue(new Callback<LedConfig>() {
       @Override
       public void onResponse(Call<LedConfig> call, Response<LedConfig> response) {
-        LedConfig ledConfig = response.body();
+        ledConfig[0] = response.body();
       }
 
       @Override
