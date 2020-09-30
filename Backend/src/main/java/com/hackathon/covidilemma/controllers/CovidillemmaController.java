@@ -1,6 +1,7 @@
 package com.hackathon.covidilemma.controllers;
 
 import com.hackathon.covidilemma.models.entities.Player;
+import com.hackathon.covidilemma.models.entities.Score;
 import com.hackathon.covidilemma.models.entities.Question;
 import com.hackathon.covidilemma.services.CovidilemmaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,17 @@ public class CovidillemmaController {
 
   @PostMapping("/login")
   public ResponseEntity addNewPlayer(@RequestBody Player player) {
-    covidilemmaService.addNewPlayer(player);
-    return ResponseEntity.ok().build();
+    return ResponseEntity.status(200).body(covidilemmaService.addNewPlayer(player));
+  }
+
+  @PostMapping("/score")
+  public ResponseEntity saveScore(@RequestBody Score score) {
+    return ResponseEntity.status(200).body(covidilemmaService.saveScore(score));
+  }
+
+  @GetMapping("/scores")
+  public ResponseEntity showScores() {
+    return ResponseEntity.status(200).body(covidilemmaService.listScores());
   }
 
 }

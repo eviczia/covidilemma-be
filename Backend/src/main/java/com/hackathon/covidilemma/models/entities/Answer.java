@@ -14,6 +14,8 @@ public class Answer {
   private int id;
   private String answer;
   private boolean isCorrect;
+  @ManyToOne
+  private Question question;
 
   public Answer() {
   }
@@ -45,6 +47,14 @@ public class Answer {
 
   public void setCorrect(boolean correct) {
     isCorrect = correct;
+  }
+
+  public Question getQuestion() {
+    return question;
+  }
+
+  public void setQuestion(Question question) {
+    this.question = question;
   }
 
 }

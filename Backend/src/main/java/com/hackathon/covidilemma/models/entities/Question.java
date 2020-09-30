@@ -20,7 +20,7 @@ public class Question {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
   private String question;
-  @OneToMany(cascade = CascadeType.ALL)
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
   private List<Answer> answers;
 
   public Question() {
