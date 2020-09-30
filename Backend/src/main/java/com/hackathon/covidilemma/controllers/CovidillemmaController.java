@@ -1,6 +1,7 @@
 package com.hackathon.covidilemma.controllers;
 
 import com.hackathon.covidilemma.models.entities.Player;
+import com.hackathon.covidilemma.models.entities.dtos.Result;
 import com.hackathon.covidilemma.services.CovidilemmaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,4 +32,8 @@ public class CovidillemmaController {
     return ResponseEntity.ok().build();
   }
 
+  @GetMapping("/score")
+  public ResponseEntity getScore(@RequestBody Result result) {
+
+  }
 }
