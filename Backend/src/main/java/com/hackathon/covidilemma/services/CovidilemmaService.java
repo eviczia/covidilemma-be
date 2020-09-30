@@ -17,4 +17,6 @@ public interface CovidilemmaService {
 
   Scores listScores();
 
+  void addQuestion(Question question);
+
 }
