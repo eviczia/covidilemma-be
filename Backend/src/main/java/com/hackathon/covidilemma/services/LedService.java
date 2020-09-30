@@ -1,6 +1,6 @@
 package com.hackathon.covidilemma.services;
 
-import com.hackathon.covidilemma.models.entities.LedConfig;
+import com.hackathon.covidilemma.models.dtos.LedConfig;
 import com.hackathon.covidilemma.models.entities.Reservation;
 import retrofit2.Call;
 import retrofit2.http.Body;

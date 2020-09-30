@@ -1,5 +1,6 @@
 package com.hackathon.covidilemma.models.entities;
 
+
 public class Reservation {
 
   private Integer duration;
