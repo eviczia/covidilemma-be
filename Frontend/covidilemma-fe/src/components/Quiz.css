@@ -1,0 +1,28 @@
+body {
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+}
+
+.question-section {
+    padding: 20px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.answerButton {
+    margin: 5px;
+    font-weight: bold;
+    padding: 10px;
+    background-color: rgb(12, 35, 59);
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px
+}
+
+.answerButton:hover {
+    background-color: white;
+    color: rgb(12, 35, 59);
+}

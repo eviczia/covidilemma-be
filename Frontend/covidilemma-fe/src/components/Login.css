@@ -3,7 +3,8 @@ body {
   background-image: url("virus.jpg");
   font-family: "Roboto", sans-serif;
   padding: 20px;
-  justify-content: center;}
+  justify-content: center;
+}
 
 .loginPage {
   display: flex;

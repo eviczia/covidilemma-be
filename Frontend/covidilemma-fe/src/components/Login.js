@@ -18,7 +18,6 @@ function Login() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-
     if (player.username === "") {
       setErrorMessage({
         message: "Nickname is required",
