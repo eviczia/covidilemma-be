@@ -4,7 +4,7 @@ import "./Login.css";
 import { useHistory } from "react-router-dom";
 
 function Login() {
-  const [user, setUser] = useState({
+  const [player, setPlayer] = useState({
     username: "",
   });
 
@@ -16,25 +16,36 @@ function Login() {
 
   async function handleSubmit(event) {
     event.preventDefault();
+    console.log(player);
+    axios({
+      method: "post",
+      url: "http://localhost:8080/login",
+      data: {
+        username: player.username,
+      },
+    }).then((response) => {
+      console.log(response);
+      history.push("/main");
+    });
 
-    axios
-      .post("https://jsonplaceholder.typicode.com/posts", {
-        name: user.username,
-      })
-      .then((response) => {
-        console.log(response);
-        history.push("/main");
-        //   if (response.status === 400) {
-        //   } else if (response.status === 200) {
-        //     setUser(user.nickName);
-        //     response.redirect("/");
-        //     //store token
-        //   }
-      });
+    // axios
+    //   .post("http://localhost:8080/login", {
+    //     username: player.username,
+    //   })
+    //   .then((response) => {
+    //     console.log(response);
+    //     history.push("/main");
+    //     //   if (response.status === 400) {
+    //     //   } else if (response.status === 200) {
+    //     //     setUser(user.nickName);
+    //     //     response.redirect("/");
+    //     //     //store token
+    //     //   }
+    //   });
   }
 
   function handleInputChange(event) {
-    setUser({ username: event.target.value });
+    setPlayer({ [event.target.name]: event.target.value });
   }
 
   return (
@@ -47,8 +58,8 @@ function Login() {
           <div>
             <input
               type="text"
-              name="nickname"
-              value={user.username}
+              name="username"
+              value={player.username}
               placeholder="Enter your nickname"
               className="nicknameInput"
               onChange={handleInputChange}
