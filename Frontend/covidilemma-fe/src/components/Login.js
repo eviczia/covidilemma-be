@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./Login.css";
+import "./Error.css";
 import { useHistory } from "react-router-dom";
 
 function Login() {
@@ -8,40 +9,34 @@ function Login() {
     username: "",
   });
 
-  //   const [errorMessage, setErrorMessage] = useState({
-  //     message: "",
-  //     isError: false,
-  //   });
+  const [errorMessage, setErrorMessage] = useState({
+    message: "",
+    isError: false,
+  });
+
   let history = useHistory();
 
   async function handleSubmit(event) {
     event.preventDefault();
 
-    axios({
-      method: "post",
-      url: "http://localhost:8080/login",
-      data: {
-        username: player.username,
-      },
-    }).then((response) => {
-      console.log(response);
-      history.push("/main");
-    });
-
-    // axios
-    //   .post("http://localhost:8080/login", {
-    //     username: player.username,
-    //   })
-    //   .then((response) => {
-    //     console.log(response);
-    //     history.push("/main");
-    //     //   if (response.status === 400) {
-    //     //   } else if (response.status === 200) {
-    //     //     setUser(user.nickName);
-    //     //     response.redirect("/");
-    //     //     //store token
-    //     //   }
-    //   });
+    if (player.username === "") {
+      setErrorMessage({
+        message: "Nickname is required",
+        isError: true,
+      });
+    } else {
+      await axios({
+        method: "post",
+        url: "http://localhost:8080/login",
+        data: {
+          username: player.username,
+        },
+      }).then((response) => {
+        if (response.status === 200) {
+          history.push("/main");
+        }
+      });
+    }
   }
 
   function handleInputChange(event) {
@@ -64,6 +59,9 @@ function Login() {
               className="nicknameInput"
               onChange={handleInputChange}
             />
+          </div>
+          <div className="error">
+            {errorMessage.isError === true && errorMessage.message}
           </div>
           <div className="submit">
             <button type="submit" className="submitButton">
