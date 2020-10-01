@@ -27,8 +27,7 @@ public class LedLightService {
   private void buildRetrofit() {
     OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
     Retrofit retrofit = new Retrofit.Builder()
-        .baseUrl("https://covidilemma.free.beeceptor.com/")
-//        .baseUrl("http://backend.bassboost.hu/hackathon/")
+        .baseUrl("http://backend.bassboost.hu/hackathon/")
         .addConverterFactory(GsonConverterFactory.create())
         .client(httpClient.build())
         .build();
