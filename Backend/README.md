@@ -69,6 +69,7 @@ After successful launching you can access the application in `localhost:8080`
 
 #### [GET /questions]
 - get questions for playing
+- sends a POST request, which controls the leds using Retrofit
 
 #### [POST /question]
 - post questions for store new questions
