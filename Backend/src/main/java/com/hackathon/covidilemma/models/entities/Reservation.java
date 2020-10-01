@@ -5,6 +5,9 @@ public class Reservation {
 
   private Integer duration;
 
+  public Reservation() {
+  }
+
   public Reservation(Integer duration) {
     this.duration = duration;
   }

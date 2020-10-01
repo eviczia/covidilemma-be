@@ -10,15 +10,15 @@ public interface LedService {
 
   final String KEY = "5d31ef37-2484-4075-baa3-14f9c0c90fd2";
 
-  @POST("/send/{KEY}")
+  @POST("/send/" + KEY)
   Call<LedConfig> turnLedsOn(@Body LedConfig ledConfig);
 
-  @POST("/stop/{KEY}")
+  @POST("/stop/" + KEY)
   Call<LedConfig> stop();
 
-  @POST ("/lock/{KEY}")
-  Call<LedConfig> lock(@Body Reservation reservation);
+  @POST ("/lock/" + KEY)
+  Call<Reservation> lock(@Body Reservation reservation);
 
-  @POST("/unlock/{KEY}")
+  @POST("/unlock/" + KEY)
   Call<LedConfig> unlock();
 }
