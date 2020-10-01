@@ -8,7 +8,7 @@ import retrofit2.http.POST;
 
 public interface LedService {
 
-  final String KEY = "5d31ef37-2484-4075-baa3-14f9c0c90fd2";
+  String KEY = "5d31ef37-2484-4075-baa3-14f9c0c90fd2";
 
   @POST("/send/" + KEY)
   Call<LedConfig> turnLedsOn(@Body LedConfig ledConfig);
@@ -17,7 +17,7 @@ public interface LedService {
   Call<LedConfig> stop();
 
   @POST ("/lock/" + KEY)
-  Call<Reservation> lock(@Body Reservation reservation);
+  Call<Reservation> lock(@Body int duration);
 
   @POST("/unlock/" + KEY)
   Call<LedConfig> unlock();

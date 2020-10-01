@@ -18,23 +18,12 @@ public class LedController {
     this.ledLightService = ledLightService;
   }
 
-  @PostMapping("/leds")
-  public ResponseEntity lightUp() {
-    ledLightService.controllLeds();
-    return ResponseEntity.ok().build();
-  }
-
   @PostMapping("/stop")
   public ResponseEntity stop() {
     ledLightService.stop();
     return ResponseEntity.ok().build();
   }
 
-  @PostMapping("/lock")
-  public ResponseEntity lock(@RequestBody Reservation reservation) {
-    ledLightService.lock(reservation);
-    return ResponseEntity.ok().build();
-  }
 
   @PostMapping("/unlock")
   public ResponseEntity unlock() {
