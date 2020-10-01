@@ -2,11 +2,12 @@ package com.hackathon.covidilemma.services;
 
 import com.hackathon.covidilemma.models.dtos.LedConfig;
 import com.hackathon.covidilemma.models.entities.Reservation;
+import okhttp3.OkHttpClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
 
@@ -27,20 +28,20 @@ public class LedLightService {
   }
 
   public void controllLeds() {
-    LedService ledService = RetrofitServiceGenerator.createService(LedService.class);
-    LedConfig ledConfig = getCounterConfig();
-    Call<LedConfig> callSync = ledService.turnLedsOn(ledConfig);
+    OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://backend.bassboost.hu/hackathon/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .client(httpClient.build())
+        .build();
+
+    LedService ledService = retrofit.create(LedService.class);
+    Call<LedConfig> callSync = ledService.turnLedsOn(getCounterConfig());
     try {
-      callSync.execute();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    /*try {
-      Response<LedConfig> response = callSync.execute();
-      ledConfig = response.body();
-    } catch (IOException e) {
+     callSync.execute();
+    } catch (Exception ex) {
       System.err.println();
-    }*/
+    }
   }
 
   public void stop() {
@@ -64,18 +65,7 @@ public class LedLightService {
       e.printStackTrace();
     }
   }
-    /*callAsync.enqueue(new Callback<LedConfig>() {
-      @Override
-      public void onResponse(Call<LedConfig> call, Response<LedConfig> response) {
-        LedConfig ledConfig = response.body();
-      }
 
-      @Override
-      public void onFailure(Call<LedConfig> call, Throwable t) {
-        System.err.println();
-      }
-    });
-  }*/
   public void unlock() {
     LedService ledService = RetrofitServiceGenerator.createService(LedService.class);
 
@@ -85,18 +75,6 @@ public class LedLightService {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    /*callAsync.enqueue(new Callback<LedConfig>() {
-      @Override
-      public void onResponse(Call<LedConfig> call, Response<LedConfig> response) {
-        LedConfig ledConfig = response.body();
-      }
-
-      @Override
-      public void onFailure(Call<LedConfig> call, Throwable t) {
-        System.err.println();
-      }
-    });*/
   }
-
 
 }
