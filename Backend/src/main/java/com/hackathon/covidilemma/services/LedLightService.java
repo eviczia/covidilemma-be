@@ -8,6 +8,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.io.IOException;
+
 @Service
 public class LedLightService {
 
@@ -18,31 +20,38 @@ public class LedLightService {
     this.retrofitServiceGenerator = retrofitServiceGenerator;
   }
 
-  public void controllLeds(LedConfig ledConfig) {
-    LedService ledService = retrofitServiceGenerator.createService(LedService.class);
+  private static final String COUNTER = "{\"controller\":{\"controllerType\":\"Timer\",\"controllerDescriptor\":{\"initialActions\":[{\"actionType\":\"CreateSegment\",\"actionDescriptor\":{\"headPosition\":0,\"length\":20,\"headColor\":{\"r\":0,\"g\":255,\"b\":0},\"headIntensity\":1}}],\"timerActions\":[{\"initialDelay\":1000,\"actions\":[{\"actionType\":\"CreateSegment\",\"actionDescriptor\":{\"headPosition\":20,\"length\":40,\"headColor\":{\"r\":0,\"g\":255,\"b\":0},\"headIntensity\":1}}]},{\"initialDelay\":2000,\"actions\":[{\"actionType\":\"CreateSegment\",\"actionDescriptor\":{\"headPosition\":40,\"length\":60,\"headColor\":{\"r\":0,\"g\":255,\"b\":0},\"headIntensity\":1}}]},{\"initialDelay\":3000,\"actions\":[{\"actionType\":\"CreateSegment\",\"actionDescriptor\":{\"headPosition\":60,\"length\":80,\"headColor\":{\"r\":255,\"g\":255,\"b\":0},\"headIntensity\":1}}]},{\"initialDelay\":3000,\"actions\":[{\"actionType\":\"CreateSegment\",\"actionDescriptor\":{\"headPosition\":60,\"length\":80,\"headColor\":{\"r\":255,\"g\":255,\"b\":0},\"headIntensity\":1}}]},{\"initialDelay\":4000,\"actions\":[{\"actionType\":\"CreateSegment\",\"actionDescriptor\":{\"headPosition\":80,\"length\":100,\"headColor\":{\"r\":255,\"g\":140,\"b\":0},\"headIntensity\":1}}]},{\"initialDelay\":5000,\"actions\":[{\"actionType\":\"CreateSegment\",\"actionDescriptor\":{\"headPosition\":100,\"length\":120,\"headColor\":{\"r\":255,\"g\":0,\"b\":0},\"headIntensity\":1}}]}]}}}";
 
-    Call<LedConfig> callAsync = ledService.turnLedsOn(ledConfig);
-    callAsync.enqueue(new Callback<LedConfig>() {
-      @Override
-      public void onResponse(Call<LedConfig> call, Response<LedConfig> response) {
-        LedConfig ledConfig = response.body();
-      }
+  public LedConfig getCounterConfig() {
+    return new LedConfig(COUNTER);
+  }
 
-      @Override
-      public void onFailure(Call<LedConfig> call, Throwable t) {
-        System.err.println();
-      }
-    });
+  public void controllLeds() {
+    LedService ledService = RetrofitServiceGenerator.createService(LedService.class);
+    LedConfig ledConfig = getCounterConfig();
+    Call<LedConfig> callSync = ledService.turnLedsOn(ledConfig);
+    try {
+      callSync.execute();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    /*try {
+      Response<LedConfig> response = callSync.execute();
+      ledConfig = response.body();
+    } catch (IOException e) {
+      System.err.println();
+    }*/
   }
 
   public void stop() {
-    LedService ledService = retrofitServiceGenerator.createService(LedService.class);
+    LedService ledService = RetrofitServiceGenerator.createService(LedService.class);
 
     Call<LedConfig> callAsync = ledService.stop();
     callAsync.enqueue(new Callback<LedConfig>() {
       @Override
       public void onResponse(Call<LedConfig> call, Response<LedConfig> response) {
-        LedConfig ledConfig = response.body();
+        LedConfig ledConfig = getCounterConfig();
+        ledConfig = response.body();
       }
 
       @Override
@@ -53,10 +62,16 @@ public class LedLightService {
   }
 
   public void lock(Reservation reservation) {
-    LedService ledService = retrofitServiceGenerator.createService(LedService.class);
+    LedService ledService = RetrofitServiceGenerator.createService(LedService.class);
 
-    Call<LedConfig> callAsync = ledService.lock(reservation);
-    callAsync.enqueue(new Callback<LedConfig>() {
+    Call<Reservation> callSync = ledService.lock(reservation);
+    try {
+      callSync.execute();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+    /*callAsync.enqueue(new Callback<LedConfig>() {
       @Override
       public void onResponse(Call<LedConfig> call, Response<LedConfig> response) {
         LedConfig ledConfig = response.body();
@@ -67,12 +82,17 @@ public class LedLightService {
         System.err.println();
       }
     });
-  }
+  }*/
   public void unlock() {
-    LedService ledService = retrofitServiceGenerator.createService(LedService.class);
+    LedService ledService = RetrofitServiceGenerator.createService(LedService.class);
 
-    Call<LedConfig> callAsync = ledService.unlock();
-    callAsync.enqueue(new Callback<LedConfig>() {
+    Call<LedConfig> callSync = ledService.unlock();
+    try {
+      callSync.execute();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    /*callAsync.enqueue(new Callback<LedConfig>() {
       @Override
       public void onResponse(Call<LedConfig> call, Response<LedConfig> response) {
         LedConfig ledConfig = response.body();
@@ -82,12 +102,8 @@ public class LedLightService {
       public void onFailure(Call<LedConfig> call, Throwable t) {
         System.err.println();
       }
-    });
+    });*/
   }
 
-  private static final String COUNTER = "{\"controller\":{\"controllerType\":\"Timer\",\"controllerDescriptor\":{\"initialActions\":[{\"actionType\":\"CreateSegment\",\"actionDescriptor\":{\"headPosition\":0,\"length\":20,\"headColor\":{\"r\":0,\"g\":255,\"b\":0},\"headIntensity\":1}}],\"timerActions\":[{\"initialDelay\":1000,\"actions\":[{\"actionType\":\"CreateSegment\",\"actionDescriptor\":{\"headPosition\":20,\"length\":40,\"headColor\":{\"r\":0,\"g\":255,\"b\":0},\"headIntensity\":1}}]},{\"initialDelay\":2000,\"actions\":[{\"actionType\":\"CreateSegment\",\"actionDescriptor\":{\"headPosition\":40,\"length\":60,\"headColor\":{\"r\":0,\"g\":255,\"b\":0},\"headIntensity\":1}}]},{\"initialDelay\":3000,\"actions\":[{\"actionType\":\"CreateSegment\",\"actionDescriptor\":{\"headPosition\":60,\"length\":80,\"headColor\":{\"r\":255,\"g\":255,\"b\":0},\"headIntensity\":1}}]},{\"initialDelay\":3000,\"actions\":[{\"actionType\":\"CreateSegment\",\"actionDescriptor\":{\"headPosition\":60,\"length\":80,\"headColor\":{\"r\":255,\"g\":255,\"b\":0},\"headIntensity\":1}}]},{\"initialDelay\":4000,\"actions\":[{\"actionType\":\"CreateSegment\",\"actionDescriptor\":{\"headPosition\":80,\"length\":100,\"headColor\":{\"r\":255,\"g\":140,\"b\":0},\"headIntensity\":1}}]},{\"initialDelay\":5000,\"actions\":[{\"actionType\":\"CreateSegment\",\"actionDescriptor\":{\"headPosition\":100,\"length\":120,\"headColor\":{\"r\":255,\"g\":0,\"b\":0},\"headIntensity\":1}}]}]}}}";
 
-  public LedConfig getCounterConfig() {
-    return new LedConfig(COUNTER);
-  }
 }

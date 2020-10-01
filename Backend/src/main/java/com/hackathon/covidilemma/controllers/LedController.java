@@ -6,6 +6,7 @@ import com.hackathon.covidilemma.services.LedLightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -19,8 +20,8 @@ public class LedController {
   }
 
   @PostMapping("/leds")
-  public ResponseEntity lightUp(LedConfig ledConfig) {
-    ledLightService.controllLeds(ledConfig);
+  public ResponseEntity lightUp() {
+    ledLightService.controllLeds();
     return ResponseEntity.ok().build();
   }
 
@@ -31,7 +32,7 @@ public class LedController {
   }
 
   @PostMapping("/lock")
-  public ResponseEntity lock(Reservation reservation) {
+  public ResponseEntity lock(@RequestBody Reservation reservation) {
     ledLightService.lock(reservation);
     return ResponseEntity.ok().build();
   }
