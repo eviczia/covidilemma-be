@@ -4,8 +4,8 @@ plugins {
     id 'java'
 }
 
-apply plugin: 'checkstyle'
-apply plugin: 'jacoco'
+//apply plugin: 'checkstyle'
+//apply plugin: 'jacoco'
 
 group = 'com.hackathon'
 version = '0.0.1-SNAPSHOT'
