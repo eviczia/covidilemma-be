@@ -18,24 +18,19 @@ public class CovidilemmaServiceImpl implements CovidilemmaService {
   private PlayerRepository playerRepository;
   private QuestionRepository questionRepository;
   private ScoreRepository scoreRepository;
+  private LedLightService ledLightService;
 
   @Autowired
   public CovidilemmaServiceImpl(PlayerRepository playerRepository, QuestionRepository questionRepository,
-                                ScoreRepository scoreRepository) {
+                                ScoreRepository scoreRepository, LedLightService ledLightService) {
     this.playerRepository = playerRepository;
     this.questionRepository = questionRepository;
     this.scoreRepository = scoreRepository;
+    this.ledLightService = ledLightService;
   }
 
   public List<Question> getQuestions() {
-/*    Question question = new Question(
-        "How are you?",
-        "Absolutely marvelous, thank you for asking.",
-        "Not bad, not bad",
-        "Jolly well, how are you?",
-        "Splendid!"
-    );
-    addQuestion(question);*/
+    ledLightService.controllLeds();
     return questionRepository.findAll();
   }
 
@@ -45,12 +40,12 @@ public class CovidilemmaServiceImpl implements CovidilemmaService {
   }
 
   @Override
-  public Player addNewPlayer (Player player){
-      if (player.getUsername().isEmpty()) {
-        player.setUsername("Anonymus");
-      }
-      return playerRepository.save(player);
+  public Player addNewPlayer(Player player) {
+    if (player.getUsername().isEmpty()) {
+      player.setUsername("Anonymus");
     }
+    return playerRepository.save(player);
+  }
 
   @Override
   public Score saveScore(Score score) {

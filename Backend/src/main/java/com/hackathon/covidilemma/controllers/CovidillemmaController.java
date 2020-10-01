@@ -4,6 +4,7 @@ import com.hackathon.covidilemma.models.entities.Player;
 import com.hackathon.covidilemma.models.entities.Score;
 import com.hackathon.covidilemma.models.entities.Question;
 import com.hackathon.covidilemma.services.CovidilemmaServiceImpl;
+import com.hackathon.covidilemma.services.LedLightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,10 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class CovidillemmaController {
 
   private CovidilemmaServiceImpl covidilemmaService;
+  private LedLightService ledLightService;
 
   @Autowired
-  public CovidillemmaController(CovidilemmaServiceImpl covidilemmaService) {
+  public CovidillemmaController(CovidilemmaServiceImpl covidilemmaService, LedLightService ledLightService) {
     this.covidilemmaService = covidilemmaService;
+    this.ledLightService = ledLightService;
   }
 
   @GetMapping("/questions")
@@ -47,6 +50,12 @@ public class CovidillemmaController {
   @GetMapping("/scores")
   public ResponseEntity showScores() {
     return ResponseEntity.status(200).body(covidilemmaService.listScores());
+  }
+
+  @PostMapping("/stop")
+  public ResponseEntity stop() {
+    ledLightService.stop();
+    return ResponseEntity.ok().build();
   }
 
 }
