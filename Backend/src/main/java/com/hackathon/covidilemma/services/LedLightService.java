@@ -46,19 +46,12 @@ public class LedLightService {
   public void stop() {
     LedService ledService = RetrofitServiceGenerator.createService(LedService.class);
 
-    Call<LedConfig> callAsync = ledService.stop();
-    callAsync.enqueue(new Callback<LedConfig>() {
-      @Override
-      public void onResponse(Call<LedConfig> call, Response<LedConfig> response) {
-        LedConfig ledConfig = getCounterConfig();
-        ledConfig = response.body();
-      }
-
-      @Override
-      public void onFailure(Call<LedConfig> call, Throwable t) {
-        System.err.println();
-      }
-    });
+    Call<LedConfig> callSync = ledService.stop();
+    try {
+      callSync.execute();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   public void lock(Reservation reservation) {
